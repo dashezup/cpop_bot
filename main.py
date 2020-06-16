@@ -1,5 +1,9 @@
+import asyncio
 import logging
+from datetime import timedelta
+
 from aiogram import Bot, Dispatcher, executor, types
+from timeloop import Timeloop
 
 import config
 from command_handler import CommandHandler
@@ -47,5 +51,14 @@ def main():
     )
 
 
+tl = Timeloop()
+
+
+@tl.job(interval=timedelta(seconds=1))
+def do_every_second():
+    asyncio.run(textHandler.checkVideos())
+
+
 if __name__ == '__main__':
+    tl.start(block=False)
     main()
