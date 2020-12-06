@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 from urllib.request import Request
 from urllib.request import urlopen
 from PIL import Image
+from opencc import OpenCC
 import config
 
 logger = logging.getLogger(__name__)
@@ -50,6 +51,9 @@ class TextHandler:
                 webpage_id = format(info['id'])
                 webpage_url = format(info['webpage_url'])
                 uploader = format(info['uploader'])
+                converter = OpenCC('s2tw.json')
+                uploader = converter.convert(uploader)
+                title = converter.convert(title)
                 thumbnail_url = format(info['thumbnail'])
                 thumbnail_urlpath = urlparse(thumbnail_url).path
                 thumbnail_filename = os.path.basename(thumbnail_urlpath)

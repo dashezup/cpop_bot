@@ -3,3 +3,4 @@ ujson
 aiogram
 youtube-dl
 Pillow
+OpenCC
